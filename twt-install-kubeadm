@@ -1,25 +1,9 @@
-   #Kubernetes Setup Using Kubeadm In AWS EC2 Ubuntu Servers.
-   #Prerequisite
-
-   #  AWS Acccount.
-   #  Create 3 - Ubuntu Servers -- 18.04.
-   # 1 Master (4GB RAM , 2 Core) t2.medium
-   #  2 Workers (1 GB, 1 Core) t2.micro
-   #  Create Security Group and open required ports for kubernetes.
-   #  Open all port for this illustration
-   # Attach Security Group to EC2 Instance/nodes.
-   # copy this script and execute in the  master and worker nodes
-   
-#Assign hostname & login as ‘root’ user because the following set of commands need to be executed with ‘sudo’ permissions.
-
-sudo hostnamectl set-hostname node25
-#sudo hostnamectl set-hostname master 
-
-
-
 #!/bin/bash
-#i1) Switch to rootUser
+# common.sh
+# copy this script and run in all master and worker nodes
+#i1) Switch to root user [ sudo -i]
 
+sudo hostnamectl set-hostname  node1
 sudo -i
 
 #2) Disable swap & add kernel settings
