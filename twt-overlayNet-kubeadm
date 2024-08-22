@@ -1,0 +1,6 @@
+# Configure kubectl as a normal ubuntu user
+sudo su - ubuntu
+
+# To install Weave network plugin
+
+kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
