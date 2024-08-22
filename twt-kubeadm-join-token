@@ -1,0 +1,5 @@
+#cerating a kubeadm join token for workersNode
+kubeadm token create --print-join-command
+
+  # sample:
+  #kubeadm join 172.31.16.229:6443 --token kmzn2a.atc7vwbxf9haby8k --discovery-token-ca-cert-hash sha256:ec9b5029dff90cf62feb003b83da6ffb41be0b203526f1706315570860518xx9
