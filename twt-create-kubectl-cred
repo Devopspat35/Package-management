@@ -1,0 +1,8 @@
+# execute command as regular ubuntuUser
+# should be the  exact docker-accountName
+# should be the exact docker-loginPassword
+# the assigned name for the imaage pull secret here is dockercredential
+
+kubectl create secret docker-registry dockercredential \
+    --docker-server=docker.io --docker-username=mylandmarktech \   
+    --docker-password=yyyyxxxxxxxxxx              
