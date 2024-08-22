@@ -8,16 +8,19 @@
    #  Create Security Group and open required ports for kubernetes.
    #  Open all port for this illustration
    # Attach Security Group to EC2 Instance/nodes.
-
+   # copy this script and execute in the  master and worker nodes
+   
 #Assign hostname & login as ‘root’ user because the following set of commands need to be executed with ‘sudo’ permissions.
 
-sudo hostnamectl set-hostname master
-sudo -i
+sudo hostnamectl set-hostname node25
+#sudo hostnamectl set-hostname master 
+
+
 
 #!/bin/bash
-# common.sh
-# copy this script and run in all master and worker nodes
-#i1) Switch to root user [ sudo -i]
+#i1) Switch to rootUser
+
+sudo -i
 
 #2) Disable swap & add kernel settings
 
