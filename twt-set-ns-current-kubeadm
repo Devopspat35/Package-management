@@ -1,0 +1,23 @@
+#creating a namespace:
+#imparative approach:
+#kubectl create namespace <namespace-name>
+kubectl create namespace dev
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#declarative approach to create a namespace: prod
+# vi prodns.yml
+#!/bin/bash
+
+apiVersion: v1
+kind : Namespace
+metadata:
+  name: prod
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#save exit and deploy with:  
+kubectl apply -f prodns.yml
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+#setting a created ns to the current working environment:
+#kubectl config set-context --current --namespace=<namespace-name>
+
+kubectl config set-context --current --namespace=dev
