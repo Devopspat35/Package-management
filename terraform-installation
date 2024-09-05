@@ -1,0 +1,60 @@
+1.  Installation of terreform on windows local machine:
+
+https://developer.hashicorp.com/terraform/install
+
+2.  installation of terraform vs-code plugins the brings colouration to files:
+
+https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform
+
+3.  create a folder in a location of choice.
+Copy the zip terraform to the folder created.
+
+4.  copy the absolute path to the location of terraform.exe and liscence. 
+
+5. go to control panel and search for system / edit system envirionmental variable 
+      (approach well recommended for windows 10 and windows 11 )
+
+6. edit the path to system variables by creating a new path to the extracted terraform.exe. plus liscence:
+
+for example:
+C:\terraform-folder\terrafrom   
+
+here:
+C:\ is the disk, 
+terraform-folder is the created folder to house terraform.exe and the liscence, 
+terraform represent the terraform xe and liscence
+ok every interactive page and exit.
+
+7. Use the following link to download and install awscli to the local machine:
+ 
+ https://awscli.amazonaws.com/AWSCLIV2.msi
+
+8.  got to commmand prompt or git bash terminal to verify if installation is successful
+  run the command:  terraform --version
+  Terraform v1.9.5
+
+9. initilize terraform by running:
+  terraform init.
+  should see a message like: Terraform has been successfully initialized!
+  NB: this creates two files:
+          .terraform 
+          .terraform.lock.hcl
+10. authenticate the terminal by configuring for aws with IAM acess key:
+
+AWS Access Key ID [****************SR6P]: 
+AWS Secret Access Key [****************WWJ3]: 
+Default region name [us-east-2]:                          //Ohio
+Default output format [json]: 
+
+  To switch to another region like us-east-1             
+    only the region changes in aws configur to us-east-1
+AWS Access Key ID [****************SR6P]: 
+AWS Secret Access Key [****************WWJ3]: 
+Default region name [us-east-2]:  us-east-1                      // virginia
+Default output format [json]: 
+
+11. Run the following command to create aws resources:
+    terraform plan
+
+done.
+
