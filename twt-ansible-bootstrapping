@@ -1,38 +1,26 @@
-# bootstrapping-ansible.sh
 #!/bin/bash
-#switch user to root
-sudi -i
-
-#set the hostname to ans
-hostnamectl set-hostname ans
-
+#set hostname to ans
+sudo hostnamectl set-hostname ans
 # Update package list
-apt-get update
-
+sudo apt-get update
 # Install software-properties-common for managing PPAs
-apt-get install -y software-properties-common
-
+sudo apt-get install -y software-properties-common
 # Add Ansible PPA (Personal Package Archive) to the system
-add-apt-repository --yes --update ppa:ansible/ansible
-
+sudo add-apt-repository --yes --update ppa:ansible/ansible
 # Install Ansible
-apt-get install -y ansible
-
+sudo apt-get install -y ansible
 # Verify Ansible installation
 ansible --version
-
 # Create a new user and configure for Ansible
 sudo useradd -m -s /bin/bash ansible
-sudo passwd ansible_user <<EOF
-foxxxx
+sudo passwd ansible <<EOF
+foncha
 EOF
-
 # Allow the new user to use sudo without a password (optional)
-echo 'ansible_user ALL=(ALL) NOPASSWD: ALL' | sudo tee /etc/sudoers.d/ansible
-
+echo 'ansible ALL=(ALL) NOPASSWD: ALL' | sudo tee /etc/sudoers.d/ansible
 # Add the public key to the user's authorized_keys for SSH access (optional)
 mkdir -p /home/ansible/.ssh
 echo "ssh-rsa class35 your-public-key" > /home/ansible/.ssh/authorized_keys
 chown -R ansible:ansible /home/ansible/.ssh
-chmod 400 /home/ansible_user/.ssh/authorized_keys
+chmod 400 /home/ansible/.ssh/authorized_keys
 
