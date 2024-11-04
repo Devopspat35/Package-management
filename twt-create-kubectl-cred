@@ -3,7 +3,7 @@
 # should be the exact docker-loginPassword
 # the assigned name for the imaage pull secret here is dockercredential
 
-kubectl create secret docker-registry dockercred  --docker-server=docker.io --docker-username=devopspatemf2021 --docker-password=xyxyxyxy
+kubectl create secret docker-registry dockerlogin  --docker-server=docker.io --docker-username=devopspatemf2021 --docker-password=xyxyxyxy
 
 or
 
