@@ -5,7 +5,7 @@ sudo su - ubuntu
 sudo kubeadm init
 
 # Initialize Kubernetes control plane by running the below commond as regular Ubuntu-User.
-# execute the below commands as a normal ubuntu user
+# Create .kube/config file for authentication of the cluster:
 
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
