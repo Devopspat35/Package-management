@@ -7,7 +7,8 @@ kubectl create secret docker-registry dockerlogin  --docker-server=docker.io --d
 
 or
 
+
 kubectl create secret docker-registry dockerlogin \
-    --docker-server=docker.io \
-    --docker-username=devopspatemf2021 \   
-    --docker-password=yyyyxxxxxxxxxx              
+--docker-server=docker.io \
+--docker-username=devopspatemf2021 \
+--docker-password=xyxyxyxy
