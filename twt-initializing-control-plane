@@ -1,4 +1,4 @@
-# exit as rootUser
+# exit as normalUser (ubuntu)
 sudo su - ubuntu
 
 # Initialised the control plane in the master node as a normalUser
