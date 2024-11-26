@@ -1,7 +1,7 @@
 # exit as rootUser
 sudo su - ubuntu
 
-# Initialised the control plane in the master node as a rootUser
+# Initialised the control plane in the master node as a normalUser
 sudo kubeadm init
 
 # Initialize Kubernetes control plane by running the below commond as regular Ubuntu-User.
