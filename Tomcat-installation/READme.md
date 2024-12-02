@@ -15,6 +15,7 @@
 
 ``` sh
 # change hostname to tomcat
+sudo timedatectl set-timezone America/New_York
 sudo hostnamectl set-hostname tomcat
 sudo su - ec2-user
 cd /opt 
