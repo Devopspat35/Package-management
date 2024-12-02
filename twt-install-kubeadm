@@ -5,7 +5,7 @@
 
 sudo hostnamectl set-hostname  node1
 sudo -i
-
+sudo timedatectl set-timezone America/New_York
 #2) Disable swap & add kernel settings
 
 swapoff -a
