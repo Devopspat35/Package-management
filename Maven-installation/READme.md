@@ -17,7 +17,7 @@
 
 ``` sh
 # install Java JDK 11+ as a pre-requisit for maven to run.
-
+sudo timedatectl set-timezone America/New_York
 sudo hostnamectl set-hostname maven
 sudo su - ec2-user
 cd /opt
