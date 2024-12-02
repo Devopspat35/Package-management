@@ -16,7 +16,8 @@
 ## Create nexus user to manage the Nexus server
 ```sh
 #As a good security practice, Nexus is not advised to run nexus service as a root user, 
-# so create a new user called nexus and grant sudo access to manage nexus services as follows. 
+# so create a new user called nexus and grant sudo access to manage nexus services as follows.
+sudo timedatectl set-timezone America/New_York 
 sudo hostnamectl set-hostname nexus
 sudo useradd nexus
 # Grand sudo access to nexus user
