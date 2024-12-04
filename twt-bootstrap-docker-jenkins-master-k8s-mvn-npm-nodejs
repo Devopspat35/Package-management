@@ -67,13 +67,12 @@ sudo apt install -y kubeadm=1.28.1-1.1 kubelet=1.28.1-1.1 kubectl=1.28.1-1.1
 
 apt-mark hold kubelet kubeadm kubectl
 
-sudo yum install wget git nano tree net-tools unzip –y
 cd /var
 sudo wget -O /etc/yum.repos.d/jenkins.repo  https://pkg.jenkins.io/redhat-stable/jenkins.repo
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-sudo yum install fontconfig java-17-openjdk -y
-sudo yum install jenkins -y
-sudo yum upgrade -y  
+sudo apt install fontconfig java-17-openjdk -y
+sudo apt install jenkins -y
+sudo apt upgrade -y  
 
 sudo systemctl daemon-reload
 sudo systemctl enable jenkins
