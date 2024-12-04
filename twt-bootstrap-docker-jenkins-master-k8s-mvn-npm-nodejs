@@ -11,7 +11,7 @@ sudo su - ubuntu
 sudo apt remove java* -y
 sudo apt install openjdk-11-jre -y
 
-apt install tree nano net-tools  vim –y
+apt install tree nano net-tools wget vim –y
 apt install maven  nodejs   npm -y
 
 swapoff -a
@@ -65,7 +65,6 @@ sudo apt install -y kubeadm=1.28.1-1.1 kubelet=1.28.1-1.1 kubectl=1.28.1-1.1
 
 apt-mark hold kubelet kubeadm kubectl
 
-cd /var
 sudo wget -O /etc/yum.repos.d/jenkins.repo  https://pkg.jenkins.io/redhat-stable/jenkins.repo
 sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
 sudo apt install fontconfig java-17-openjdk -y
