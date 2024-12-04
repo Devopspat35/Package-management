@@ -76,7 +76,7 @@ echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkin
 
 apt update
 
-sudo apt install -y jenkins
+apt install -y jenkins
 
 systemctl daemon-reload
 systemctl start jenkins
