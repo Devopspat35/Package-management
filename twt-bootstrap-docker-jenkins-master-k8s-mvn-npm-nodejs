@@ -61,26 +61,24 @@ curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
 apt-get update
-sudo apt install -y kubeadm=1.28.1-1.1 kubelet=1.28.1-1.1 kubectl=1.28.1-1.1
+apt install kubeadm=1.28.1-1.1 kubelet=1.28.1-1.1 kubectl=1.28.1-1.1 -y
 
 apt-mark hold kubelet kubeadm kubectl
 
 # Update the system and install necessary dependencies in debian or ubuntu
- apt update && sudo apt upgrade -y
+apt update && sudo apt upgrade -y
 apt install -y curl gnupg2 software-properties-common
 
 curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee "/usr/share/keyrings/jenkins-keyring.asc" > /dev/null
 echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/" | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
 
 apt update
- apt install jenkins -y
-systemctl daemon-reload
+apt install jenkins -y
 
-systemctl enable jenkins
+systemctl daemon-reload
 systemctl start jenkins
-systemctl status jenkins
+systemctl enable jenkins
 
-systemctl daemon-reload
 systemctl start kubelet
 systemctl enable kubelet.service
 
