@@ -64,17 +64,45 @@ apt-get update
 apt install kubeadm=1.28.1-1.1 kubelet=1.28.1-1.1 kubectl=1.28.1-1.1 -y
 
 apt-mark hold kubelet kubeadm kubectl
-
-# Update the system and install necessary dependencies in debian or ubuntu
-cd /var/lib
+#install jenkins on ubuntu server
 apt update && sudo apt upgrade -y
-apt install -y curl gnupg2 software-properties-common
 
-curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | sudo tee "/usr/share/keyrings/jenkins-keyring.asc" > /dev/null
-echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/" | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+# Install Java (Jenkins requires Java)
+echo "Installing Java..."
+sudo apt install -y openjdk-11-jdk
 
-apt update
-apt install jenkins -y
+# Add the Jenkins repository key to your system
+echo "Adding Jenkins repository key..."
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee \
+  /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+# Add the Jenkins repository to the sources list
+echo "Adding Jenkins repository..."
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+# Update package lists again
+echo "Updating package lists..."
+sudo apt update
+
+# Install Jenkins
+echo "Installing Jenkins..."
+sudo apt install -y jenkins
+
+# Start and enable the Jenkins service
+echo "Starting and enabling Jenkins..."
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+
+# Display Jenkins status
+echo "Checking Jenkins status..."
+sudo systemctl status jenkins
+
+# Display initial admin password
+echo "Jenkins has been installed. Retrieving initial admin password..."
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+echo -e "\nAccess Jenkins at: http://<your_server_ip>:8080"
+
 
 systemctl daemon-reload
 systemctl start jenkins
