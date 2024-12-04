@@ -66,6 +66,7 @@ apt install kubeadm=1.28.1-1.1 kubelet=1.28.1-1.1 kubectl=1.28.1-1.1 -y
 apt-mark hold kubelet kubeadm kubectl
 
 # Update the system and install necessary dependencies in debian or ubuntu
+cd /var/lib
 apt update && sudo apt upgrade -y
 apt install -y curl gnupg2 software-properties-common
 
