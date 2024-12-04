@@ -67,7 +67,6 @@ sudo apt install -y kubeadm=1.28.1-1.1 kubelet=1.28.1-1.1 kubectl=1.28.1-1.1
 
 apt-mark hold kubelet kubeadm kubectl
 
-sudo hostnamectl set-hostname jenkins
 sudo yum install wget git nano tree net-tools unzip –y
 cd /var
 sudo wget -O /etc/yum.repos.d/jenkins.repo  https://pkg.jenkins.io/redhat-stable/jenkins.repo
