@@ -15,11 +15,11 @@ apt install tree nano net-tools  vim –y
 apt install maven  nodejs npm -y
 
 #inatall trivy image scan tool 
-sudo apt-get install wget apt-transport-https gnupg lsb-release -y
+sudo apt install wget apt-transport-https gnupg lsb-release -y
 wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
 echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
-sudo apt-get update -y
-sudo apt-get install trivy -y
+sudo apt update -y
+sudo apt install trivy -y
 
 swapoff -a
 sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
