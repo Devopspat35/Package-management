@@ -11,7 +11,6 @@ sudo su - ubuntu
 sudo apt remove java* -y
 sudo apt install openjdk-11-jre -y
 
-apt install tree nano net-tools  vim –y
 apt install maven  nodejs npm -y
 
 #inatall trivy image scan tool 
