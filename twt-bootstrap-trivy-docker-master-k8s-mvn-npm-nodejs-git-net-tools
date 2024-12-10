@@ -11,7 +11,7 @@ sudo su - ubuntu
 sudo apt remove java* -y
 sudo apt install openjdk-11-jre -y
 
-apt install maven  nodejs npm -y
+sudo apt install maven  nodejs npm -y
 
 #inatall trivy image scan tool 
 sudo apt install wget apt-transport-https gnupg lsb-release -y
