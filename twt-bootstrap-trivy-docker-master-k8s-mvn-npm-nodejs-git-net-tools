@@ -5,7 +5,7 @@ sudo timedatectl set-timezone America/New_York
 sudo apt update -y
 sudo apt install tree nano git wget vim -y
 sudo apt install net-tools -y
-sudo apt install maven  nodejs npm -y
+
 sudo apt install docker.io -y
 sudo usermod -aG docker ubuntu
 sudo su - ubuntu
@@ -77,3 +77,6 @@ systemctl enable kubelet.service
 
 sudo systemctl start docker
 sudo systemctl enable docker
+
+cd /opt
+sudo apt install maven  nodejs npm -y
