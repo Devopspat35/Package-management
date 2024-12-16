@@ -1,11 +1,5 @@
-#  **<span style="color:green">Landmark Technologies.</span>**
-### **<span style="color:green">Contacts: +1437 215 2483<br> WebSite : <http://mylandmarktech.com/></span>**
-### **Email: mylandmarktech@gmail.com**
-
-
-
-## Nexus Installation And Setup In AWS EC2 Redhat Instance.
-##### Pre-requisite
+# Nexus Installation And Setup In AWS EC2 Redhat Instance.
+# Pre-requisite
 + AWS Acccount.
 + Create Redhat EC2 t2.medium Instance with 4GB RAM.
 + Create Security Group and open Required ports.
