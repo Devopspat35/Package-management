@@ -1,11 +1,5 @@
-#  **<span style="color:green">Landmark Technologies, Ontario, Canada.</span>**
-### **<span style="color:green">Contacts: +1437 215 2483<br> WebSite : <http://mylandmarktech.com/></span>**
-### **Email: mylandmarktech@gmail.com**
-
-
-
-## SonarQube Installation And Setup In AWS EC2 Redhat Instance.
-##### Prerequisite
+# SonarQube Installation And Setup In AWS EC2 Redhat Instance.
+# Prerequisite
 + AWS Acccount.
 + Create Redhat EC2 T2.medium Instance with 4GB RAM.
 + Create Security Group and open Required ports.
