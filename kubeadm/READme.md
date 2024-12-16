@@ -1,11 +1,5 @@
-#  **<span style="color:green">Landmark Technologies.</span>**
-### **<span style="color:green">Contacts: +1437 215 2483<br> WebSite : <http://mylandmarktech.com/></span>**
-### **Email: mylandmarktech@gmail.com**
-
-
-
-## Kubernetes Setup Using Kubeadm In AWS EC2 Ubuntu Servers.
-##### Prerequisite
+# Kubernetes Setup Using Kubeadm In AWS EC2 Ubuntu Servers.
+# Prerequisite
 + AWS Acccount.
 + Create 3 - Ubuntu Servers -- 18.04.
 + 1 Master (4GB RAM , 2 Core)  t2.medium
@@ -14,7 +8,7 @@
    + Open all port for this illustration
 + Attach Security Group to EC2 Instance/nodes.
 
-## Assign hostname &  login as ‘root’ user because the following set of commands need to be executed with ‘sudo’ permissions.
+# Assign hostname &  login as ‘root’ user because the following set of commands need to be executed with ‘sudo’ permissions.
 ```sh
 sudo hostnamectl set-hostname master
 sudo -i
