@@ -369,7 +369,7 @@ helm install trivy-operator aqua/trivy-operator \
   --create-namespace \
   --version 0.23.1 
   
-
+#### manual configurations, initializing and updating 
 # ## initialize the control plane 
 
 #   sudo kubeadm init
