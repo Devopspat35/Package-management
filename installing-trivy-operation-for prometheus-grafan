@@ -178,4 +178,232 @@ Once pasted, you should see the following Dashboard as part of your Dashboard li
 
 
 ## full installation stack for kubenertes cluster, prometheus, grafana, elasticsearch , filebeat, kibana, trivy operator.
+#!/bin/bash
+# common.sh
+# copy this script and run in all master and worker nodes
+#i1) Switch to root user [ sudo -i]
+
+sudo hostnamectl set-hostname  master
+sudo -i
+
+#2) Disable swap & add kernel settings
+
+swapoff -a
+sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
+
+#3) Add  kernel settings & Enable IP tables(CNI Prerequisites)
+
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+modprobe overlay
+modprobe br_netfilter
+
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+sysctl --system
+
+#4) Install containerd run time
+
+#To install containerd, first install its dependencies.
+
+apt-get update -y
+apt-get install ca-certificates curl gnupg lsb-release -y
+
+#Note: We are not installing Docker Here.Since containerd.io package is part of docker apt repositories hence we added docker repository & it's key to download and install containerd.
+# Add Docker’s official GPG key:
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+#Use follwing command to set up the repository:
+
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Install containerd
+
+apt-get update -y
+apt-get install containerd.io -y
+
+# Generate default configuration file for containerd
+
+#Note: Containerd uses a configuration file located in /etc/containerd/config.toml for specifying daemon level options.
+#The default configuration can be generated via below command.
+
+containerd config default > /etc/containerd/config.toml
+
+# Run following command to update configure cgroup as systemd for contianerd.
+
+sed -i 's/SystemdCgroup \= false/SystemdCgroup \= true/g' /etc/containerd/config.toml
+
+# Restart and enable containerd service
+
+systemctl restart containerd
+systemctl enable containerd
+
+#5) Installing kubeadm, kubelet and kubectl
+
+# Update the apt package index and install packages needed to use the Kubernetes apt repository:
+
+apt-get update
+apt-get install -y apt-transport-https ca-certificates curl
+
+# Download the Google Cloud public signing key:
+
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+# Add the Kubernetes apt repository:
+
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+# Update apt package index, install kubelet, kubeadm and kubectl, and pin their version:
+
+apt-get update
+sudo apt install -y kubeadm=1.28.1-1.1 kubelet=1.28.1-1.1 kubectl=1.28.1-1.1
+
+# apt-mark hold will prevent the package from being automatically upgraded or removed.
+
+apt-mark hold kubelet kubeadm kubectl
+
+# Enable and start kubelet service
+
+systemctl daemon-reload
+systemctl start kubelet
+systemctl enable kubelet.service
+
+# install dependencies for helm and Node-Exporter
+sudo timedatectl set-timezone America/New_York
+sudo apt update -y
+sudo apt install tree nano unzip wget vim git -y 
+sudo apt install net-tools -y
+sudo apt remove java* -y
+sudo apt install openjdk-17-jre   -y 
+
+#Enable PasswordAuthentication in the server
+sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]no/c\PasswordAuthentication yes" /etc/ssh/sshd_config
+sudo service sshd restart
+
+#install aws-cli for ubuntu
+# https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+
+#install helm chart on ubuntu
+#https://helm.sh/docs/intro/install/
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+# link: https://github.com/AnaisUrlichs/trivy-operator/blob/grafana/docs/tutorials/grafana-dashboard.md
+# other Recommendation for prometheus to run on server: at least 2core cpu, 25G disk space. 
+# Assign root disk at 80G:  for kubeadm,  and monitiring-observability -  prometheus, grafana, elastic logstashsearc ,  kibana 
+# Add the Prometheus Community Helm repository:
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+# Create a Kubernetes namespace for the Node Exporter:
+kubectl create namespace monitoring  
+
+# Add the chart for helm CLI
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+# update your charts to access the latest versions:
+helm repo update
+
+# install prometheus using the install the Helm Chart:
+helm upgrade --install prom prometheus-community/kube-prometheus-stack -n monitoring 
+
+## manually upgrade  the prometheus values with --values values.yaml file configured
+# link : https://github.com/Devopspat35/Package-management/blob/master/installing-trivy-operation-for%20prometheus-grafan
+
+
+## manually upgrade alert with yaml file from link:
+# https://github.com/Devopspat35/Package-management/blob/master/installing-trivy-operation-for%20prometheus-grafan
+# helm upgrade prometheus prometheus-community/kube-prometheus-stack -f alert.yaml -n monitoring
+
+# Install the Node Exporter using Helm:
+helm install prometheus-node-exporter prometheus-community/prometheus-node-exporter --namespace monitoring 
+
+# Installing the Trivy Operator Helm Chart 
+
+helm repo add aqua https://aquasecurity.github.io/helm-charts/
+helm repo update
+
+# install elasticsearch-logstash-kibana in kubernetes
+
+# Clone the repository 
+git clone https://github.com/shawon100/elasticsearch-logstash-kibana-kubernetes 
+
+# add the helm repo
+
+helm repo add elastic https://helm.elastic.co
+
+# Create and Apply the persistent volumes for elastic search. 
+kubectl apply –f pv.yaml
+#  install elasticsearch. 
+helm install elasticsearch elastic/elasticsearch --version="7.17.3" -f values.yaml --namespace monitoring 
+
+# Create and Apply the persistent volumes for filebeat. 
+
+kubectl apply –f pv.yaml
+
+#  Install filebeat 
+helm install filebeat elastic/filebeat --version="7.17.3" -f values.yaml --namespace monitoring 
+
+# Install kibana using helm. 
+
+helm install kibana  --version="7.17.3"  elastic/kibana --namespace monitoring 
+
+
+# install latest trivy operator:
+# check latest operator here: https://aquasecurity.github.io/trivy-operator/v0.7.1/operator/installation/helm/
+helm install trivy-operator aqua/trivy-operator \
+  --namespace trivy-system \
+  --create-namespace \
+  --version 0.23.1 
+  
+
+# manually create the trivy-values.yaml filer
+# manually update the trivy operator with trivy-values.yaml file
+# https://github.com/Devopspat35/Package-management/blob/master/installing-trivy-operation-for%20prometheus-grafan
+
+# helm upgrade --install trivy-operator aqua/trivy-operator \
+ #--namespace trivy-system \
+ #--create-namespace \
+ #--version 0.23.1 \
+ #--values trivy-values.yaml
+
+
+  ## initialize the control plane 
+  sudo kubeadm init
+
+#  Create kubeconfig file for authentication of the cluster
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+# create namespace dev and set context to dev:
+kubectl create namespace dev
+kubectl config set-context --current --namespace=dev
+
+# install Weave network plugin 
+kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+
+##manually generate the kubeadm join token to bootstrap worker-nodes
+
+# kubeadm token create --print-join-command
+
+# manually  update trviy operator using the trivy-values.yaml file
+# https://github.com/Devopspat35/Package-management/blob/master/installing-trivy-operation-for%20prometheus-grafan 
+
+# list all services and edit for grafana, and kibana -n monitoring ( kibana, prometheus) 
+
 
