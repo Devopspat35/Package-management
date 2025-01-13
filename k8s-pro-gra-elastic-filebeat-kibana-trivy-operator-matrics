@@ -307,6 +307,19 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scrip
 chmod 700 get_helm.sh
 ./get_helm.sh
 
+
+#### manual configurations, initializing and updating 
+# ## initialize the control plane 
+
+#   sudo kubeadm init
+
+# #  Create kubeconfig file for authentication of the cluster
+# mkdir -p $HOME/.kube
+# sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+# sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+# use a sript to intall the following
 # link: https://github.com/AnaisUrlichs/trivy-operator/blob/grafana/docs/tutorials/grafana-dashboard.md
 # other Recommendation for prometheus to run on server: at least 2core cpu, 25G disk space. 
 # Assign root disk at 80G:  for kubeadm,  and monitiring-observability -  prometheus, grafana, elastic logstashsearc ,  kibana 
@@ -333,7 +346,7 @@ helm install prometheus-node-exporter prometheus-community/prometheus-node-expor
 
 # Installing the Trivy Operator Helm Chart 
 
-helm repo add aqua https://aquasecurity.github.io/helm-charts/
+helm repo add aqua https://aquasecurity.github.io/helm-charts/ --namespace=monitoring 
 helm repo update
 
 # install elasticsearch-logstash-kibana in kubernetes
@@ -343,23 +356,23 @@ git clone https://github.com/shawon100/elasticsearch-logstash-kibana-kubernetes
 
 # add the helm repo
 
-helm repo add elastic https://helm.elastic.co
+helm repo add elastic https://helm.elastic.co --namespace=monitoring 
 
 # Create and Apply the persistent volumes for elastic search. 
 kubectl apply –f pv.yaml
 #  install elasticsearch. 
-helm install elasticsearch elastic/elasticsearch --version="7.17.3" -f values.yaml --namespace monitoring 
+helm install elasticsearch elastic/elasticsearch --version="7.17.3" -f values.yaml --namespace=monitoring 
 
 # Create and Apply the persistent volumes for filebeat. 
 
 kubectl apply –f pv.yaml
 
 #  Install filebeat 
-helm install filebeat elastic/filebeat --version="7.17.3" -f values.yaml --namespace monitoring 
+helm install filebeat elastic/filebeat --version="7.17.3" -f values.yaml --namespace=monitoring 
 
 # Install kibana using helm. 
 
-helm install kibana  --version="7.17.3"  elastic/kibana --namespace monitoring 
+helm install kibana  --version="7.17.3"  elastic/kibana --namespace=monitoring 
 
 
 # install latest trivy operator:
@@ -369,15 +382,6 @@ helm install trivy-operator aqua/trivy-operator \
   --create-namespace \
   --version 0.23.1 
   
-#### manual configurations, initializing and updating 
-# ## initialize the control plane 
-
-#   sudo kubeadm init
-
-# #  Create kubeconfig file for authentication of the cluster
-# mkdir -p $HOME/.kube
-# sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-# sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 # # create namespace dev and set context to dev:
 # kubectl create namespace dev
