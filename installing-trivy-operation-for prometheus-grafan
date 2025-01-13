@@ -174,3 +174,8 @@ The link to the Dashboard in Grafana is [the following.](https://grafana.com/gra
 Once pasted, you should see the following Dashboard as part of your Dashboard list: `Trivy Operator Dashboard`
 
 ![Trivy Operator Dashbaord in Grafana Screenshot](../images/trivy-grafana.png)
+
+
+
+## full installation stack for kubenertes cluster, prometheus, grafana, elasticsearch , filebeat, kibana, trivy operator.
+
