@@ -371,6 +371,7 @@ helm install trivy-operator aqua/trivy-operator \
   
 
   ## initialize the control plane 
+  sudo su - ubuntu
   sudo kubeadm init
 
 #  Create kubeconfig file for authentication of the cluster
