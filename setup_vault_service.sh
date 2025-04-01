@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Define variables
 VAULT_BIN="/usr/local/bin/vault"
 VAULT_USER="vault"
