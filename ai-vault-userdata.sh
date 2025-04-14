@@ -25,4 +25,4 @@ python3 -m pip install bcrypt -y
 
 # verify that bycrpt is installed.
 # python3 -c "import bcrypt; print(bcrypt.__version__)"
-# Ref: https://systemweakness.com/how-to-install-and-configure-hashicorp-vault-a-beginner-friendly-guide-acb307ca3fe7
+
