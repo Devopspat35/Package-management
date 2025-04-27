@@ -18,6 +18,7 @@ sudo service sshd restart
 cd /opt
 sudo yum  install unzip wget git -y
 sudo yum install  java-11-openjdk-devel -y
+sudo yum install maven nodejs npm -y
 sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.8.zip
 sudo unzip sonarqube-7.8.zip
 sudo rm -rf sonarqube-7.8.zip
