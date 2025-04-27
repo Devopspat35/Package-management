@@ -25,7 +25,19 @@ sudo rm -rf sonarqube-7.8.zip
 sudo mv sonarqube-7.8 sonarqube
 sudo chown -R sonar:sonar /opt/sonarqube/
 sudo chmod -R 775 /opt/sonarqube/
-# give like 3 minutes to switch to sonar and start sonarqube… packages not fully loaded
-# sudo su  - sonar  
+# ls -al /opt/sonarqube
+#install maven nodejs and npm on redhat
+# sudo yum install maven nodejs npm -y
+ # verify installed packages
+ # java -version
+ # nvm --version
+ # npm --version
+# switch to sonar user
+# sudo su - sonar
+#start sonarQube server
 # sh /opt/sonarqube/bin/linux-x86-64/sonar.sh start 
 # sh /opt/sonarqube/bin/linux-x86-64/sonar.sh status
+# Access the sonarqube application
+#  pubIP:9000
+#default USERNAME: admin
+#default password: admin
