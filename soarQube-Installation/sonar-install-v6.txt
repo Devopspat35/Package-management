@@ -18,8 +18,9 @@ sudo service sshd restart
 
 # 4. Install JAVA pre-requisite
 cd /opt
-sudo yum -y install unzip wget git
-sudo yum install  java-11-openjdk-devel
+sudo yum  install unzip wget git -y
+sudo yum install  java-11-openjdk-devel -y
+sudo yum install maven nodejs npm -y
 # 5. Download the SonarqQube Server software. 
 sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.8.zip
 sudo unzip sonarqube-7.8.zip
