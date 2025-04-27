@@ -1,6 +1,6 @@
 #!/bin/bash
 # sonarqube-userdata
- sudo -i
+sudo -i
 sudo hostnamectl set-hostname  sonar
 sudo timedatectl set-timezone America/New_York
 sudo yum update -y
