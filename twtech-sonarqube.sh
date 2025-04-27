@@ -10,7 +10,7 @@ sudo yum install net-tools unzip curl  -y
 sudo useradd sonar
 sudo echo "sonar ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/sonar
 sudo passwd sonar <<EOF
-zxzxzxzc@xyxyxyxy
+zxzxzxzcxyxyxyxy
 EOF
 sudo su - sonar
 sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]no/c\PasswordAuthentication yes" /etc/ssh/sshd_config
