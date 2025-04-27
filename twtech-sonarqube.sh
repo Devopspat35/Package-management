@@ -29,7 +29,7 @@ sudo chmod -R 775 /opt/sonarqube/
 #install maven nodejs and npm on redhat
 # verify installed packages
 # java -version
-# mvn--version
+# mvn --version
 # npm --version
 # switch to sonar user
 # sudo su - sonar
