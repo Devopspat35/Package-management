@@ -7,7 +7,7 @@ sudo yum update -y
 sudo yum install tree nano vim -y
 sudo yum remove java* -y
 sudo yum install net-tools unzip curl  -y
-sudo adduser sonar
+sudo useradd sonar
 sudo echo "sonar ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/sonar
 sudo passwd sonar <<EOF
 zxzxzxzc@xyxyxyxy
