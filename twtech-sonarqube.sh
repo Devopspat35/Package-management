@@ -23,7 +23,8 @@ sudo service sshd restart
 # Install Java JDK 1.8+ required for sonarqube to start
 cd /opt
 sudo yum  install unzip wget git -y
-sudo yum install  java-11-openjdk-devel -y
+sudo dnf install java-11-amazon-corretto -y
+# sudo yum install  java-11-openjdk-devel -y
 #Download and extract the SonarqQube Server software
 sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.8.zip
 sudo unzip sonarqube-7.8.zip
