@@ -8,4 +8,4 @@ systemctl start httpd
 
 systemctl enable httpd
 
-echo " <h1> twtech hello-app from $(hostname -f)</h1>" > /var/www/html/index.html
+echo " <h1> twtech hello-app from $(hostname -f) in us-east-2 </h1>" > /var/www/html/index.html
